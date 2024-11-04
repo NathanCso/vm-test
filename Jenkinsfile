@@ -8,20 +8,17 @@ pipeline {
             }
         }
 
-        stage('Install Ansible') {
+        stage('Install Ansible via pip') {
             steps {
                 sh '''
                     echo "Updating package lists"
                     apt-get update || { echo "Failed to update package lists"; exit 1; }
 
-                    echo "Installing software-properties-common"
-                    apt-get install -y software-properties-common || { echo "Failed to install software-properties-common"; exit 1; }
+                    echo "Installing Python3 and pip"
+                    apt-get install -y python3 python3-pip || { echo "Failed to install Python3 and pip"; exit 1; }
 
-                    echo "Adding Ansible repository"
-                    apt-add-repository --yes --update ppa:ansible/ansible || { echo "Failed to add Ansible repository"; exit 1; }
-
-                    echo "Installing Ansible"
-                    apt-get install -y ansible || { echo "Failed to install Ansible"; exit 1; }
+                    echo "Installing Ansible using pip"
+                    pip3 install ansible || { echo "Failed to install Ansible with pip"; exit 1; }
                 '''
             }
         }
@@ -39,3 +36,4 @@ pipeline {
         }
     }
 }
+
