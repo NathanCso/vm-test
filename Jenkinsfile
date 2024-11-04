@@ -12,7 +12,7 @@
         stage('Run Ansible Playbook') {
             steps {
                 // Exécuter le playbook Ansible
-                 sh 'ansible-playbook -i ansible/hosts.ini ansible/playbook.yml'
+                sh 'ansible-playbook -i ansible/hosts.ini ansible/playbook.yml'
             }
         }
     }
