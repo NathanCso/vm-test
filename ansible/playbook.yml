@@ -1,18 +1,20 @@
 ---
-  - name: Installer le serveur web
-    hosts: vagrant vm
-    apt:
+- name: Installer le serveur web
+  hosts: vagrant_vm  
+  tasks:  
+    - name: Installer NGINX
+      apt:
         name: nginx
         state: present
         update_cache: true
 
-        - name: Démarrer NGINX
-    service:
+    - name: Démarrer NGINX
+      service:
         name: nginx
         state: started
         enabled: true
 
-        - name: Créer une page d'accueil personnalisée
-    copy:
+    - name: Créer une page d'accueil personnalisée
+      copy:
         content: "<h1>Serveur NGINX configuré par Ansible !</h1>"
         dest: /var/www/html/index.html
