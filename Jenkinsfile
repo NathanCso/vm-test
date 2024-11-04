@@ -11,10 +11,17 @@ pipeline {
         stage('Install Ansible') {
             steps {
                 sh '''
-                    apt-get update
-                    apt-get install -y software-properties-common
-                    apt-add-repository --yes --update ppa:ansible/ansible
-                    apt-get install -y ansible
+                    echo "Updating package lists"
+                    apt-get update || { echo "Failed to update package lists"; exit 1; }
+
+                    echo "Installing software-properties-common"
+                    apt-get install -y software-properties-common || { echo "Failed to install software-properties-common"; exit 1; }
+
+                    echo "Adding Ansible repository"
+                    apt-add-repository --yes --update ppa:ansible/ansible || { echo "Failed to add Ansible repository"; exit 1; }
+
+                    echo "Installing Ansible"
+                    apt-get install -y ansible || { echo "Failed to install Ansible"; exit 1; }
                 '''
             }
         }
