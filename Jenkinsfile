@@ -1,11 +1,11 @@
-pipeline {
+ pipeline {
     agent any
 
     stages {
         stage('Clone Repository') {
             steps {
-                
-                git 'https://github.com/NathanCso/vm-test.git'
+                // Spécifie explicitement la branche "main" lors du clonage
+                git branch: 'main', url: 'https://github.com/NathanCso/vm-test.git'
             }
         }
 
